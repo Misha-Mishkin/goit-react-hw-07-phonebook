@@ -9,38 +9,61 @@ import {
   changeContactRequest,
   changeContactSuccess,
   changeContactError,
+  fetchContactRequest,
+  fetchContactSuccess,
+  fetchContactError,
 } from './actions';
 
 axios.defaults.baseURL = 'https://62d6bca151e6e8f06f11d821.mockapi.io/contacts';
 
-export const addContact = text => dispatch => {
-  const contact = {
-    text,
-    completed: false,
+export const fetchContact = () => async dispatch => {
+  dispatch(fetchContactRequest());
+
+  try {
+    const { contacts } = await axios.get(`/contacts`);
+    return dispatch(fetchContactSuccess(contacts));
+  } catch (error) {
+    return dispatch(fetchContactError(error));
+  }
+};
+
+export const addContact =
+  ({ id, name, phone }) =>
+  async dispatch => {
+    const contact = {
+      id,
+      name,
+      phone,
+    };
+
+    dispatch(addContactRequest());
+
+    try {
+      const { data } = await axios.post('/contacts', contact);
+      return dispatch(addContactSuccess(data));
+    } catch (error) {
+      return dispatch(addContactError(error));
+    }
   };
 
-  dispatch(addContactRequest());
-
-  return axios
-    .post('/contacts', contact)
-    .then(({ data }) => dispatch(addContactSuccess(data)))
-    .catch(error => dispatch(addContactError(error)));
-};
-
-export const deleteContact = id => dispatch => {
+export const deleteContact = id => async dispatch => {
   dispatch(deleteContactRequest());
 
-  return axios
-    .delete(`/contacts/${id}`)
-    .then(() => dispatch(deleteContactSuccess(id)))
-    .catch(error => dispatch(deleteContactError(error)));
+  try {
+    await axios.delete(`/contacts/${id}`);
+    return dispatch(deleteContactSuccess(id));
+  } catch (error) {
+    return dispatch(deleteContactError(error));
+  }
 };
 
-export const changeFilter = id => dispatch => {
+export const changeFilter = name => async dispatch => {
   dispatch(changeContactRequest());
 
-  return axios
-    .put(`/contacts/${id}`)
-    .then(({ data }) => dispatch(changeContactSuccess(data)))
-    .catch(error => dispatch(changeContactError(error)));
+  try {
+    const { data } = await axios.put(`/contacts/${name}`);
+    return dispatch(changeContactSuccess(data));
+  } catch (error) {
+    return dispatch(changeContactError(error));
+  }
 };

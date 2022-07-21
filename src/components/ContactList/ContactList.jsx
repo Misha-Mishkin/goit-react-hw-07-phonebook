@@ -16,10 +16,10 @@ export default function ContactList() {
 
   return (
     <ul>
-      {renderContactList.map(({ id, name, number }) => {
+      {renderContactList.map(({ id, name, phone }) => {
         return (
           <li key={id} className={s.item}>
-            {name}: {number}
+            {name}: {phone}
             <button onClick={() => handleDelete(id)} className={s.button}>
               Delete
             </button>

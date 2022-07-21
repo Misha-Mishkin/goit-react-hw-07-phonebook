@@ -11,16 +11,15 @@ import {
   changeContactSuccess,
   changeContactError,
 } from './actions';
-import { nanoid } from 'nanoid';
 
 const items = createReducer([], {
-  [addContactSuccess]: (state, { payload: { name, number } }) => {
+  [addContactSuccess]: (state, { payload: {id, name, phone } }) => {
     return [
       ...state,
       {
-        id: nanoid(5),
+        id,
         name,
-        number,
+        phone,
       },
     ];
   },
