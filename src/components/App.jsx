@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h1>Phonebook 2</h1>
       <ContactForm />
       <h2>Contacts</h2>
       <Filter title="Find contact by name" />
