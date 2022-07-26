@@ -1,10 +1,10 @@
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
-import { useFetchContactsQuery } from '../serviceAPI/contactsAPI';
+// import { useFetchContactsQuery } from '../serviceAPI/contactsAPI';
 
 export default function App() {
-  const { data } = useFetchContactsQuery();
+  // const { data } = useFetchContactsQuery();
 
   return (
     <div>
@@ -12,7 +12,7 @@ export default function App() {
       <ContactForm />
       <h2>Contacts</h2>
       <Filter title="Find contact by name" />
-      {data && <ContactList contacts={data} />}
+      {<ContactList />}
     </div>
   );
 }

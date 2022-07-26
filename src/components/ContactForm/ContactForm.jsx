@@ -1,24 +1,24 @@
 import {
-  useFetchContactsQuery,
   useCreateContactMutation,
+  useFetchContactsQuery,
 } from '../../serviceAPI/contactsAPI';
 import { useState } from 'react';
 import s from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const { data: contacts } = useFetchContactsQuery;
   const [addContact] = useCreateContactMutation();
+  const { data } = useFetchContactsQuery();
 
   const handleInputChange = event => {
     switch (event.target.name) {
       case 'name':
         setName(event.target.value);
         break;
-      case 'number':
-        setNumber(event.target.value);
+      case 'phone':
+        setPhone(event.target.value);
         break;
 
       default:
@@ -26,23 +26,17 @@ export default function ContactForm() {
     return;
   };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
-
     if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      )
+      data?.find(contact => contact.name.toLowerCase() === name.toLowerCase())
     ) {
-      return alert(`${name}, is already in your contacts`);
+      alert(`${name} is already in contacts`);
+    } else {
+      addContact({ name, phone });
+      setName('');
+      setPhone('');
     }
-    addContact({ name, number });
-    reset();
   };
 
   return (
@@ -65,8 +59,8 @@ export default function ContactForm() {
         <input
           className={s.input}
           type="tel"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           onChange={handleInputChange}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

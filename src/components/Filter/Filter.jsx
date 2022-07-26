@@ -15,7 +15,7 @@ export default function Filter({ title }) {
         type="text"
         name="filter"
         value={value}
-        onChange={event => dispatch(changeFilter(event.target.value))}
+        onChange={event => dispatch(changeFilter(event.currentTarget.value))}
         className={s.input}
       ></input>
     </label>
