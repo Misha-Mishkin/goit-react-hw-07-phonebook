@@ -1,9 +1,11 @@
-import { changeFilter } from '../../redux/operations';
+import { useChangeFilterMutation } from '../../redux/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 
 export default function Filter({ title }) {
+  const [changeFilter] = useChangeFilterMutation();
+
   const value = useSelector(state => state.contacts.filter);
   const dispatch = useDispatch();
 

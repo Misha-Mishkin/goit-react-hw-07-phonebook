@@ -1,4 +1,4 @@
-import { addContact } from '../../redux/operations';
+import { useCreateContactMutation } from '../../redux/operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import s from './ContactForm.module.css';
@@ -6,6 +6,8 @@ import s from './ContactForm.module.css';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const [addContact] = useCreateContactMutation();
 
   const contacts = useSelector(state => state.contacts.items);
   const dispatch = useDispatch();

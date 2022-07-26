@@ -1,26 +1,16 @@
-import { deleteContact } from '../../redux/operations';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDeleteContactMutation } from '../../redux/operations';
 import s from './ContactList.module.css';
 
-export default function ContactList() {
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
-  const dispatch = useDispatch();
-  const renderContactList = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  const handleDelete = id => {
-    dispatch(deleteContact(id));
-  };
+export default function ContactList({ contacts }) {
+  const [handleDelete] = useDeleteContactMutation();
 
   return (
     <ul>
-      {renderContactList.map(({ id, name, phone }) => {
+      {contacts.map(({ id, name, phone }) => {
         return (
           <li key={id} className={s.item}>
             {name}: {phone}
-            <button onClick={() => handleDelete(id)} className={s.button}>
+            <button onClick={handleDelete} className={s.button}>
               Delete
             </button>
           </li>
