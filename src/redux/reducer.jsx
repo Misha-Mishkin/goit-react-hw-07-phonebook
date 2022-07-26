@@ -4,7 +4,7 @@ import {
   useCreateContactMutation,
   useDeleteContactMutation,
   useChangeFilterMutation,
-} from './operations';
+} from '../serviceAPI/contacts-api';
 
 const items = createReducer([], {
   [useCreateContactMutation]: (state, { payload: { id, name, phone } }) => {

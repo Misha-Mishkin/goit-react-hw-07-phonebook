@@ -12,23 +12,23 @@ export const contactAPI = createApi({
       providesTags: ['Contact'],
     }),
     createContact: builder.mutation({
-      query: newContact => ({
-        url: './contacts',
+      query: ({name,number}) => ({
+        url: '/contacts',
         method: 'POST',
-        body: newContact,
+        body: {name,number},
       }),
       invalidatesTags: ['Contact'],
     }),
     deleteContact: builder.mutation({
-      query: id => ({
-        url: `./contacts/${id}`,
+      query: contactId => ({
+        url: `/contacts/${contactId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Contact'],
     }),
     changeFilter: builder.mutation({
       query: id => ({
-        url: `./contacts/${id}`,
+        url: `/contacts/${id}`,
         method: 'PUT',
       }),
       invalidatesTags: ['Contact'],

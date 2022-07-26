@@ -1,4 +1,4 @@
-import { useDeleteContactMutation } from '../../redux/operations';
+import { useDeleteContactMutation } from '../../serviceAPI/contacts-api';
 import s from './ContactList.module.css';
 
 export default function ContactList({ contacts }) {

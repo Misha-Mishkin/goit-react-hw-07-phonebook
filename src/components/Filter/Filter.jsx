@@ -1,4 +1,4 @@
-import { useChangeFilterMutation } from '../../redux/operations';
+import { useChangeFilterMutation } from '../../serviceAPI/contacts-api';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import s from './Filter.module.css';
