@@ -1,12 +1,11 @@
-import { useChangeFilterMutation } from '../../serviceAPI/contacts-api';
+import { changeFilter } from '../../serviceAPI/filterSlice';
+import { getFilter } from '../../serviceAPI/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 
 export default function Filter({ title }) {
-  const [changeFilter] = useChangeFilterMutation();
-
-  const value = useSelector(state => state.contacts.filter);
+  const value = useSelector(getFilter);
   const dispatch = useDispatch();
 
   return (
@@ -14,8 +13,9 @@ export default function Filter({ title }) {
       <p className={s.text}>{title}</p>
       <input
         type="text"
+        name="filter"
         value={value}
-        onChange={event => dispatch(changeFilter(event.currentTarget.value))}
+        onChange={event => dispatch(changeFilter(event.target.value))}
         className={s.input}
       ></input>
     </label>

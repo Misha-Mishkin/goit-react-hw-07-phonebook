@@ -1,7 +1,7 @@
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
-import { useFetchContactsQuery } from '../serviceAPI/contacts-api';
+import { useFetchContactsQuery } from '../serviceAPI/contactsAPI';
 
 export default function App() {
   const { data } = useFetchContactsQuery();

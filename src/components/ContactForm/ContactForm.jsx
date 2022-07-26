@@ -1,5 +1,7 @@
-import { useCreateContactMutation } from '../../serviceAPI/contacts-api';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+  useFetchContactsQuery,
+  useCreateContactMutation,
+} from '../../serviceAPI/contactsAPI';
 import { useState } from 'react';
 import s from './ContactForm.module.css';
 
@@ -7,10 +9,8 @@ export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const { data: contacts } = useFetchContactsQuery;
   const [addContact] = useCreateContactMutation();
-
-  const contacts = useSelector(state => state.contacts.items);
-  const dispatch = useDispatch();
 
   const handleInputChange = event => {
     switch (event.target.name) {
@@ -41,7 +41,7 @@ export default function ContactForm() {
     ) {
       return alert(`${name}, is already in your contacts`);
     }
-    dispatch(addContact({ name, number }));
+    addContact({ name, number });
     reset();
   };
 
