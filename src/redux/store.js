@@ -5,7 +5,7 @@ import { filterSlice } from 'serviceAPI/filterSlice';
 export const store = configureStore({
   reducer: {
     [contactAPI.reducerPath]: contactAPI.reducer,
-    filter: filterSlice,
+    [filterSlice.name]: filterSlice.reducer
   },
 
   middleware: getDefaultMiddleware => [
